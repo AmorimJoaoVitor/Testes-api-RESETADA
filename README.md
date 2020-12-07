@@ -1,2 +1,2 @@
-# Testes-api-RESETADA
-Novo repositorio para os testes API
+# conteudos-algoritmos
+Operações Assíncronas + Funções com retorno + JSON
