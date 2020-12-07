@@ -75,22 +75,22 @@ router.get("/luminosity", (request, response, next) => {
 });
 
 router.get("/sendData", (request, response) => {
-const temperature = ArduinoDataTemp.List[ArduinoDataTemp.List.length - 1];
-const Humidity = ArduinoDataHumidity.List[ArduinoDataHumidity.List.length - 1];
+const temperatura = ArduinoDataTemp.List[ArduinoDataTemp.List.length - 1];
+// const Humidity = ArduinoDataHumidity.List[ArduinoDataHumidity.List.length - 1];
 //luminosidade = ArduinoDataLuminosity.List[ArduinoDataLuminosity.List.length -1]
 
 
 db.conectar()
     .then(() => {
         const sql = `
-        INSERT into dbo.leitura (temperatura, umidade, momento, idcaminhao)
-        values (${temperature+10}, ${Humidity+20}, '${agora()}', 1);
-        INSERT into dbo.leitura (temperatura, umidade, momento, idcaminhao)
-        values (${temperature-10}, ${Humidity+20}, '${agora()}', 2);
-        INSERT into dbo.leitura (temperatura, umidade, momento, idcaminhao)
-        values (${temperature+5}, ${Humidity-20}, '${agora()}', 3);
-        INSERT into dbo.leitura (temperatura, umidade, momento, idcaminhao)
-        values (${temperature-5}, ${Humidity-20}, '${agora()}', 4);`;
+        INSERT into dbo.medicao (temperatura, fkSensor, agora)
+        values (${temperatura}, 1, '${agora()}');
+        INSERT into dbo.medicao (temperatura, fkSensor, agora)
+        values (${temperatura}, 2, '${agora()}');
+        INSERT into dbo.medicao (temperatura, fkSensor, agora)
+        values (${temperatura}, 3, '${agora()}');
+        INSERT into dbo.medicao (temperatura, fkSensor, agora)
+        values (${temperatura}, 4, '${agora()}');`;
         console.log(sql);
     return db.sql.query(sql).then(()=>{
         console.log("Registro inserido com sucesso! \n");
